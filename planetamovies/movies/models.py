@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import date
+
 
 # Create your models here.
 class Category(models.Model):
@@ -21,3 +23,134 @@ class Category(models.Model):
         verbose_name = 'Категорія'
         # імя моделі в множині
         verbose_name_plural = 'Категорії'
+
+
+class ActorDirector(models.Model):
+    name = models.CharField("Ім'я", max_length=50)
+    age = models.PositiveSmallIntegerField('Вік', default=0, help_text='Кількість повних років')
+    describe_text = models.TextField('Опис про актора/директора')
+    image = models.ImageField(upload_to='picture/%Y/%m/%d/', height_field=200, width_field=100, max_length=200, unique=True, help_text='Зображення актора/режисера')
+
+
+    def __str__(self):
+        return self.name
+
+
+    class Meta:
+        verbose_name = 'Актор/Режисер'
+        verbose_name_plural = 'Актори/Режисери'
+
+
+class Genre(models.Model):
+    name = models.CharField("Ім'я", max_length=50)
+    describe_text = models.TextField('Опис жанру')
+    url = models.SlugField(max_length=100, unique=True)
+
+
+    def __str__(self):
+        return self.name
+
+
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанри'
+
+
+class Movies(models.Model):
+    name = models.CharField('Назва', max_length=65)
+    tagline = models.CharField('Девіз до фільму', max_length=65, default='')
+    describe_text = models.TextField('Опис Фільму')
+    poster_img = models.ImageField(upload_to='poster/%Y/%m/%d/',  max_length=200, unique=True, help_text='Зображення постера для фільму')
+    year = models.PositiveSmallIntegerField('Дата виходу', default=2020, help_text='Введіть рік виходу фільму в прокат')
+    country = models.CharField('Країна', max_length=25)
+    director = models.ManyToManyField(ActorDirector, verbose_name='режисер', related_name='film_director', help_text='Вибрати Режисера(-ів) для фільму')
+    actor = models.ManyToManyField(ActorDirector, verbose_name='актори', related_name='film_actor', help_text='Вибрати Актора(-ів) для фільму')
+    genre = models.ManyToManyField(Genre, verbose_name='жанри', help_text='Вибрати Жанри для фільму')
+    world_premier = models.DateField("Прем'єра в світі", default=date.today)
+    movie_budget = models.PositiveSmallIntegerField('Виділений бюджет на фільм', default=0, help_text='Вказати суму в долларах')
+    earnings_world = models.PositiveSmallIntegerField('Отримано грошей в світі', default=0, help_text='Вказати суму в долларах')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    url = models.SlugField(max_length=100, unique=True)
+    draft = models.BooleanField('Чорновик', default=False)
+
+    def __str__(self):
+        return self.name
+
+    def display_director(self):
+        return ', '.join([director.name for director in self.director.all()])
+
+    display_director.short_description = 'ActorDirector'
+
+    def display_actor(self):
+        return ', '.join([actor.name for actor in self.actor.all()])
+
+    display_actor.short_description = 'ActorDirector'
+
+    def display_genre(self):
+        return ', '.join([genre.name for genre in self.genre.all()])
+
+    display_genre.short_description = 'Genre'
+
+    class Meta:
+        verbose_name = 'Фільм'
+        verbose_name_plural = 'Фільми'
+
+
+class MoviesPicture(models.Model):
+    name = models.CharField('Назва для кадру', max_length=65)
+    describe_text = models.TextField('Опис до кадру з фільму')
+    images = models.ImageField(upload_to='movies/picture/%Y/%m/%d/',  max_length=200, unique=True, help_text='Зображення постера для фільму')
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name='Фільм')
+    #Cascade - видаліть усі фото якщо видалити звязаний фільм
+
+
+    def __str__(self):
+        return self.name
+
+
+    class Meta:
+        verbose_name = 'Кадр з фільму'
+        verbose_name_plural = 'Кадриз фільму'
+
+
+class StarRate(models.Model):
+    value = models.SmallIntegerField("Значення оцінки рейтингу", default=0)
+
+
+    def __str__(self):
+        return self.value
+
+
+    class Meta:
+        verbose_name = 'Кількість зірок рейтингу'
+
+
+class Rate(models.Model):
+    ip = models.CharField('Ip-адреса', max_length=25)
+    star = models.ForeignKey(StarRate, on_delete=models.CASCADE, verbose_name='Зірка')
+    movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name='Фільм')
+
+
+    def __str__(self):
+        return '{star} - {movie}'.format(star=self.star, movie=self.movie)
+
+
+    class Meta:
+        verbose_name = 'Рейтинг'
+
+
+class Reviews(models.Model):
+    email = models.EmailField()
+    name = models.CharField("Ім'я користувача", max_length=25)
+    text = models.TextField('Коментарь')
+    parent = models.ForeignKey('self', verbose_name='Батьківський коментар', on_delete=models.SET_NULL, null=True, blank=True)
+    movie = models.ForeignKey(Movies, verbose_name='Фільм', on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return '{name} - {movie}'.format(name=self.name, movie=self.movie)
+
+
+    class Meta:
+        verbose_name = 'Коментар'
+        verbose_name_plural = 'Коментарі'
