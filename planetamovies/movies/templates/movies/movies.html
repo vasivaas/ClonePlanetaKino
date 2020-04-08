@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>перевірка</title>
+    {% load static %}
+</head>
+<body>
+Тест
+{% for movie in movies_list %}
+    {{ movie.name }}
+{% endfor %}
+
+</body>
+</html>

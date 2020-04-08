@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>перевірка</title>
+</head>
+<body>
+Тест
+{% if movies_list %}
+{% for movie in movies_list %}
+    movie.name
+{% endfor %}
+{% else %}
+Поки не добавлено жодного фільму
+{% endif %}
+</body>
+</html>

@@ -3,7 +3,16 @@ from datetime import date
 
 
 # Create your models here.
-class Category(models.Model):
+class BaseModel(models.Model):
+    """
+    Абстрактна модель, де ми явно передаєм в django поле objects
+    """
+    objects = models.Manager()
+    class Meta:
+        abstract = True
+
+
+class Category(BaseModel):
     '''
         Модель Категорій
     '''
@@ -25,11 +34,14 @@ class Category(models.Model):
         verbose_name_plural = 'Категорії'
 
 
-class ActorDirector(models.Model):
+class ActorDirector(BaseModel):
+    """
+    Модель Режисерів та акторів
+    """
     name = models.CharField("Ім'я", max_length=50)
     age = models.PositiveSmallIntegerField('Вік', default=0, help_text='Кількість повних років')
     describe_text = models.TextField('Опис про актора/директора')
-    image = models.ImageField(upload_to='picture/%Y/%m/%d/', height_field=200, width_field=100, max_length=200, unique=True, help_text='Зображення актора/режисера')
+    image = models.ImageField(upload_to='picture/%Y/%m/%d/', max_length=200, unique=True, help_text='Зображення актора/режисера')
 
 
     def __str__(self):
@@ -41,7 +53,10 @@ class ActorDirector(models.Model):
         verbose_name_plural = 'Актори/Режисери'
 
 
-class Genre(models.Model):
+class Genre(BaseModel):
+    """
+    Модель Жанрів
+    """
     name = models.CharField("Ім'я", max_length=50)
     describe_text = models.TextField('Опис жанру')
     url = models.SlugField(max_length=100, unique=True)
@@ -56,7 +71,11 @@ class Genre(models.Model):
         verbose_name_plural = 'Жанри'
 
 
-class Movies(models.Model):
+class Movies(BaseModel):
+    """
+    Модель фільму
+    """
+    objects = models.Manager()
     name = models.CharField('Назва', max_length=65)
     tagline = models.CharField('Девіз до фільму', max_length=65, default='')
     describe_text = models.TextField('Опис Фільму')
@@ -96,7 +115,10 @@ class Movies(models.Model):
         verbose_name_plural = 'Фільми'
 
 
-class MoviesPicture(models.Model):
+class MoviesPicture(BaseModel):
+    """
+    Модель картинок з фільму
+    """
     name = models.CharField('Назва для кадру', max_length=65)
     describe_text = models.TextField('Опис до кадру з фільму')
     images = models.ImageField(upload_to='movies/picture/%Y/%m/%d/',  max_length=200, unique=True, help_text='Зображення постера для фільму')
@@ -110,10 +132,13 @@ class MoviesPicture(models.Model):
 
     class Meta:
         verbose_name = 'Кадр з фільму'
-        verbose_name_plural = 'Кадриз фільму'
+        verbose_name_plural = 'Кадри з фільму'
 
 
-class StarRate(models.Model):
+class StarRate(BaseModel):
+    """
+    Модель значення зірки рейтингу
+    """
     value = models.SmallIntegerField("Значення оцінки рейтингу", default=0)
 
 
@@ -123,9 +148,13 @@ class StarRate(models.Model):
 
     class Meta:
         verbose_name = 'Кількість зірок рейтингу'
+        verbose_name_plural = 'Кількість зірок рейтингу'
 
 
 class Rate(models.Model):
+    """
+    Модель Рейтингу
+    """
     ip = models.CharField('Ip-адреса', max_length=25)
     star = models.ForeignKey(StarRate, on_delete=models.CASCADE, verbose_name='Зірка')
     movie = models.ForeignKey(Movies, on_delete=models.CASCADE, verbose_name='Фільм')
@@ -137,9 +166,13 @@ class Rate(models.Model):
 
     class Meta:
         verbose_name = 'Рейтинг'
+        verbose_name_plural = 'Рейтинг'
 
 
-class Reviews(models.Model):
+class Reviews(BaseModel):
+    """
+    Модель коментарів
+    """
     email = models.EmailField()
     name = models.CharField("Ім'я користувача", max_length=25)
     text = models.TextField('Коментарь')

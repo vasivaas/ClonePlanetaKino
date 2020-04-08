@@ -5,8 +5,9 @@ from .models import Movies
 
 
 class MoviesList(View):
-
-    def get_movie(self, request):
+    """
+    Список фільмів
+    """
+    def get(self, request):
         movies = Movies.objects.all()
-
-        return render(request, 'movies/movies.html', context={'movies': movies})
+        return render(request, 'movies/movies.html', context={'movies_list': movies})
