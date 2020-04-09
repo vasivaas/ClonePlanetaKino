@@ -6,10 +6,14 @@
     {% load static %}
 </head>
 <body>
-Тест
-{% for movie in movies_list %}
-    {{ movie.name }}
+{% for slide in slider %}
+    <img src="{{ slide.img.url }}">
+    <p>{{ slide.movie.name }} </p>
 {% endfor %}
+<br>
+<br>
+Зараз у прокаті: {{ now_view_movies }}
+<br><br>
 
 </body>
 </html>

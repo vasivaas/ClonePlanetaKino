@@ -77,7 +77,7 @@ class Movies(BaseModel):
     """
     objects = models.Manager()
     name = models.CharField('Назва', max_length=65)
-    tagline = models.CharField('Девіз до фільму', max_length=65, default='')
+    tagline = models.CharField('Девіз до фільму', max_length=65, null=True, unique=True, blank=True)
     describe_text = models.TextField('Опис Фільму')
     poster_img = models.ImageField(upload_to='poster/%Y/%m/%d/',  max_length=200, unique=True, help_text='Зображення постера для фільму')
     year = models.PositiveSmallIntegerField('Дата виходу', default=2020, help_text='Введіть рік виходу фільму в прокат')
@@ -90,6 +90,26 @@ class Movies(BaseModel):
     earnings_world = models.PositiveSmallIntegerField('Отримано грошей в світі', default=0, help_text='Вказати суму в долларах')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     url = models.SlugField(max_length=100, unique=True)
+
+    MOVIE_STATUS = (
+        ('c', 'Скоро в прокаті'),
+        ('n', 'Новинки'),
+        ('t', 'Зараз у прокаті'),
+        ('a', 'Всі фільми'),
+    )
+    status = models.CharField(max_length=1, choices=MOVIE_STATUS, blank=True, default='a', help_text='Статус фільму, для відфільтровки записів')
+    age_rest = models.PositiveSmallIntegerField("Вікові обмеження", default=0)
+    MOVIE_EXPANSIVE = (
+        ('2D', 'В 2D'),
+        ('3D', 'В 3D'),
+        ('4D', 'В 4D'),
+    )
+    expanse = models.CharField(max_length=2, choices=MOVIE_EXPANSIVE, blank=True, default='2D', help_text="В якому розширенні можна подивитись(2D, 3D, 4D)")
+    MOVIE_TECHNOLOGY = (
+        ('Cintech+', 'Cintech+'),
+        ('Imax', 'Imax'),
+    )
+    technology = models.CharField(max_length=10, choices=MOVIE_TECHNOLOGY, blank=True, default='Cintech+', help_text="Технологія в якій показують фільм")
     draft = models.BooleanField('Чорновик', default=False)
 
     def __str__(self):
@@ -187,3 +207,21 @@ class Reviews(BaseModel):
     class Meta:
         verbose_name = 'Коментар'
         verbose_name_plural = 'Коментарі'
+
+
+class Slider(BaseModel):
+    """
+    Модель слайдера на головній сторінці
+    """
+    #title = models.CharField('Назва Фільму', max_length=25)
+    img = models.ImageField(upload_to='slider/%Y/%m/%d/', max_length=200, unique=True, help_text='Зображення для слайдеру на головній сторінці')
+    alt = models.TextField(verbose_name='Підказка', default='')
+    index = models.IntegerField(verbose_name='Індекс', default=0)
+    movie = models.ForeignKey(Movies, verbose_name='Фільм', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.movie.name
+
+    class Meta:
+        verbose_name = 'Слайд'
+        verbose_name_plural = 'Слайди'

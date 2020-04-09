@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uk-UA">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- start preload -->
+    <link href="{% static 'css/main.css' %}" rel="preload" as="style">
+    <link href="{% static 'css/material.css' %}" rel="preload" as="style"/>
+    <link href="{% static 'css/old-site.css' %}" rel="preload" as="style"/>
+    <link href="{% static 'css/common.css' %}" rel="preload" as="style"/>
+    <link href="{% static 'css/media.css' %}" rel="preload" as="style"/>
+    <link href="{% static 'css/slick.css' %}" rel="preload" as="style"/>
+    <link href="{% static 'css/slick-theme.css' %}" rel="preload" as="style"/>
+    <link href="{% static 'f/1/smartbanner/smart-app-banner.css' %}" rel="preload" as="style">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css' rel="preload" as="style">
+    <link href="{% static 'css/site.css' %}" rel="preload" as="style"/>
+
+    <link href="{% static 'js/scroll-to-top.js' %}" rel="preload" as="script" />
+    <link href="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" rel="preload" as="script" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js" rel="preload" as="script" />
+    <link href="{% static 'f/1/global/fonts/opensans-regular.woff2' %}" rel="preload" as="font" />
+
+
+    <!-- end preload -->
+
+    <link type='text/css' rel='stylesheet' href='{% static "css/main.css" %}'/>
+    <link type='text/css' rel='stylesheet' href='{% static "css/material.css" %}'/>
+    <link type='text/css' rel='stylesheet' href='{% static "css/old-site.css" %}'/>
+    <link type='text/css' rel='stylesheet' href='{% static "css/common.css" %}'/>
+    <link type='text/css' rel='stylesheet' href='{% static "css/media.css" %}'/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="//code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js" async></script>
+
+    <title>Планета Кіно</title>
+
+    <link rel='stylesheet' href='{% static "f/1/smartbanner/smart-app-banner.css" %}' type='text/css' media='screen'>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css' rel='stylesheet'>
+</head>
+<body class="show-sp-alert">
+<div class="wrap">
+
+    <header class="header header-main">
+        <a id="logo" class="logo icon-logo" type="index" href="#"></a>
+        <div class="container-fluid">
+            <div class="h-m">
+                <div class="h-m__mobile">
+                    <div class="h-m__bars">
+                        <span class="h-m__bar"></span>
+                        <span class="h-m__bar"></span>
+                        <span class="h-m__bar"></span>
+                    </div>
+                </div>
+                <ul class="h-m__desktop">
+                    <li class="h-m__item">
+                        <a class="h-m__item-link"
+                           href="#">Розклад</a>
+                    </li>
+                    <li class="h-m__item">
+                        <a class="h-m__item-link"
+                           href="#">Фільми</a>
+                    </li>
+
+                    <li class="h-m__item">
+                        <a class="h-m__item-link" href="#" target="_blank">Мультфільми</a>
+                    </li>
+                    <li class="h-m__item">
+                        <a class="h-m__item-link"
+                           href="#">Контакти</a>
+                    </li>
+                    <!--<li class="h-m__item">
+                        <a href="index.html#" class="h-m__item-link d-toggle" data-toggle="addon">...</a>
+                        <ul class="addon-menu addon-menu_h-m" id="addon">
+
+                            <li class="addon-menu__list-item"><a
+                                        href="dnipro/about/faq/index.html">Допомога. Відповіді на запитання</a>
+                            </li>
+
+                        </ul>
+                    </li>-->
+                </ul>
+            </div>
+            <div class="right">
+                <div class="navigation-section" id="search">
+                    <i class="material-icons move-to-hide">keyboard_backspace</i>
+                    <i class="material-icons move-to-active">search</i>
+                    <input type="text" class="search-input" />
+                    <div class="list-search-movie">
+                    </div>
+                </div>
+
+                <div class="navigation-section navigation-section_auth">
+                                            <div class="anonymous-user">
+                            <a href="#"
+                               >Вхід</a>
+                            <a class="register-link" href="#"
+                               >Реєстрація</a>
+                        </div>
+
+                </div>
+                <!--<div class="navigation-section navigation-section_cart">
+                    <a class="cart" href="https://pay.planetakino.ua/checkout">
+                        <div class="cart__icon"></div>
+                        <div class="cart__countdown">
+                            <div class="cart__q"></div>
+                            <div class="cart__cd"></div>
+                        </div>
+                        <div class="cart__items"></div>
+                    </a>
+                </div>-->
+            </div>
+        </div>
+            <a href="#" target="_blank">
+        <div class="info-alert" style="background-color: #ffd600;">
+            <div class="info-alert__block info-alert_type_desk" style="background-image: url({% static 'image/get-static.jpg' %});"></div>
+            <div class="info-alert__block info-alert_type_mob" style="background-image: url({% static 'image/get-static3.jpg' %});"></div>
+        </div>
+    </a>
+    </header>
+
+    <div class="container">
+    <div class="site-index">
+
+        <div class="body-content" id="planeta-page">
+
+            <div class="row">
+
+                <div class="col-lg-12 slider">
+                <header class=" carousel slide slider-block slider-block-fade slider-block-main carousel slide"  style="height: 751px;"  id="carousel-generic" data-ride="carousel" data-interval="3000" >
+                     <ol class="carousel-indicators">
+                         {% for slide in slider %}
+                             <li data-target="#carousel-generic" data-slide-to="{{ slide.index }}" {% ifequal slide.index 0 %}class="active"{% endifequal %}></li>
+                         {% endfor %}
+                     </ol>
+                     <div class="slider-block__carousel-inner carousel-inner">
+                         {% for slide in slider %}
+                         <div class="item{% ifequal slide.index 0 %} active{% endifequal %}" style="background-color:#000; height: 646.667px">
+                            <span class="movie-poster-block__subtitle" style="color: white;">
+                                <h3 style="color: white;">{{ slide.movie.name }}</h3>
+                            </span>
+                             <img style="width: 100%" src="{{ slide.img.url }}" alt="{{ slide.alt }}">
+                         </div>
+                         {% endfor %}
+                    </div>
+
+                         <a class="slider-block__carousel-control slider-block__carousel-control-left vertical-center left carousel-control" href="#carousel-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Назад</span>
+                         </a>
+                         <a class="slider-block__carousel-control slider-block__carousel-control-right vertical-center right carousel-control" href="#carousel-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Вперед</span>
+                         </a>
+                </header>
+                </div>
+                <div class="button-move-to-showtimes">
+                    <a href="#">Перейти до розкладу кіносеансів</a>
+                </div>
+            </div>
+            <div id="content" class="content">
+                <div class="content__section optimize">
+                    <div class="movie-top-stripe"><h1>Планета Кіно: сьогодні у кіно<sup
+                                    class="movie-amount"> {{ now_view_movies }} </sup></h1>
+                    </div>
+                    <div class="tile-list-wr"></div>
+                </div>
+
+
+                <div class="content__section optimize">
+
+                    <div class="movie-top-stripe">
+                        <a href="#">
+                            <h1>Скоро на екранах<sup class="movie-amount"> {{num_coming_soon}} інший фільм</sup></h1></a>
+                    </div>
+                    <div class="tile-list-wr">
+                        {% for movie in movies_list %}
+						<div class="movie-block" id="00000000000000000000000000000953" >
+							<div class="movie-block__inner">
+								<div class="movie-block__poster movie-block_flipper">
+									<div class="movie-block__flipper-inner">
+										<div class="movie-block__flip-front">
+											<a class="movie-block__link" href="#">
+												<div class="movie-block__top-info">
+													<div class="movie-block__ds">
+                                                        <div class="movie-block__ds-el">{{ movie.expanse }}</div>
+                                                    </div>
+
+                                                    <div class="movie-block__age">{{ movie.age_rest }}+</div>
+                                                </div>
+												<div class="movie-block__poster">
+													<div class="movie-block__poster-wr">
+														<img class="lazy" src="{{ movie.poster_img.url }}"  width="640" >
+                                                    </div>
+                                                </div>
+											</a>
+
+										</div>
+										<div class="movie-block__flip-back">
+											<a class="movie-block__link" href="#">
+												<div class="movie-block__title">
+													<div class="movie-block__title-inner">
+														{{movie.name}}
+                                                    </div>
+												</div>
+                                                <div class="movie-block__imdb">
+                                                    <div class="movie-block__imdb-img">
+                                                        <img src="{% static 'image/icons/imdb.png' %}" alt="">
+                                                    </div>
+                                                    <div class="movie-block__imdb-nums">
+                                                        <div class="movie-block__imdb-rating">6.4</div>
+                                                        <div class="movie-block__imdb-rating-from">/10</div>
+														</div>
+													</div>
+                                                <div class="movie-block__genres">
+                                                    <div class="movie-block__genres-title">Жанр</div>
+                                                    <div class="movie-block__genres-list">{{ movie.genre }}</div>
+                                                </div>
+                                                <div class="movie-block__genres movie-block_director">
+                                                    <div class="movie-block__genres-title">Режисер</div>
+                                                    <div class="movie-block__genres-list">{{ movie.director }}</div>
+                                                </div>
+                                                <div class="movie-block__text-date">
+													з {{ movie.world_premier }}
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="movie-block__foot">
+									<div class="movie-block__mobile-text-date">
+										з {{movie.world_premier}}
+									</div>
+									<div class="movie-block__techs">
+										<div><span class="movie-block__techs-el">{{movie.technology}}</span></div>
+                                    </div>
+									<div class="movie-block__mobile-name">
+                                        {% if movie.tagline %}
+										<a href="#">
+											{{movie.tagline}}</a>
+                                        {% else %}
+                                            <a></a>
+                                        {% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="description-box">
+    <div class="description-box__wrapper" style="display: block;">
+		<div class="description_content">
+            На сайті кінотеатру Планета Кіноти можеш знайти актуальний розклад найгучніших українських і всесвітніх кінопрем’єр, придбати квитки та індивідуальні 3D-окуляри. Приходь дивитися фільми у найкращій якості, найкомфортніших кінозалах і найсучасніших технологіях. Зареєструй свій особистий кабінет, отримай бонуси за кожну покупку і обміняй їх на нові походи у кіно, снеки та напої. Новий фільм – найліпша нагода зустрітися з друзями та весело провести час разом. А Планета Кіно – найкраще місце для цієї зустрічі. Драма чи комедія, фентезі чи документалка – всі кіножанри на будь-який вік і смак – приїжджай і дивись! У нашому кінотеатрі ти зможеш обирати зручний для себе час сеансу та місце у залі, насолоджуватися різними видами теплого попкорну і прохолодних напоїв. Окрім того, у нас ну дуже м’які крісла, багато простору для ніг між рядами і зручних підставок для їжі. Готовий до наступної прем’єри?
+        </div>
+	</div>
+</div>
+
+<footer class="footer footer-base">
+
+    <div class="footer-base__inner">
+        <div class="footer-base__cont">
+            <a href="#">Контакти</a>
+        </div>
+        <div class="footer-base__bots">
+            <div class="footer-base__bots-title">Наші боти допоможуть придбати квитки</div>
+            <div class="footer-base__bots-btns">
+                <div class="footer-base__bots-el"><img src="{% static 'image/icons/f-telegram.svg' %}" alt=""></div>
+                <div class="footer-base__bots-el"><img src="{% static 'image/icons/f-mess.svg' %}" alt=""></div>
+                <div class="footer-base__bots-el footer-base__apps-el_d-mob"><img src="{% static 'image/icons/f-viber.svg' %}" alt=""></div>
+            </div>
+        </div>
+        <!--<div class="footer-base__lang-map">
+            <div class="footer-base__lang">
+                <a class="locale" href="index.html">Укр</a><a class="locale" href="ru/index.html">Рос</a>            </div>
+        </div>-->
+        <div class="footer-base__apps">
+            <div class="footer-base__apps-el">
+                <img src="{% static 'image/icons/download-google-play-uk.png' %}" alt="">
+            </div>
+            <div class="footer-base__apps-el">
+                <img src="{% static 'image/icons/download-appstore-uk.png' %}" alt="">
+            </div>
+        </div>
+        <div class="footer-base__rules">
+            Правила та умови Планети Кіно
+        </div>
+        <div class="footer-base__soc">
+            <div class="footer-base__soc-el"><img src="{% static 'image/icons/f-face.svg' %}" alt=""></div>
+            <div class="footer-base__soc-el"><img src="{% static 'image/icons/f-insta.svg' %}" alt=""></div>
+            <div class="footer-base__soc-el"><img src="{% static 'image/icons/f-you.svg' %}" alt=""></div>
+        </div>
+    </div>
+
+</footer>
+
+
+
+<script src="{% static 'js/scroll-to-top.js' %}" async></script>
+
+
+
+<svg id="uptotop" width="70px" height="70px" viewBox="0 0 70 70">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Наверх</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill-opacity="0.5" fill="#3CB4E7" fill-rule="nonzero" cx="35" cy="35" r="35"/>
+        <path d="M35.9901,29.410184 L44.5895,38.009863 C45.1368,38.556913 45.1368,39.443803 44.5895,39.990603 C44.0427,40.537403 43.1558,40.537403 42.609,39.990603 L34.99985,32.381233 L27.39095,39.990403 C26.84391,40.537203 25.957105,40.537203 25.410283,39.990403 C24.863239,39.443603 24.863239,38.556693 25.410283,38.009643 L34.00983,29.409963 C34.28337,29.136551 34.6415,29 34.99981,29 C35.3583,29 35.7167,29.136817 35.9901,29.410184 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"/>
+    </g>
+</svg>
+</body>
+</html>
